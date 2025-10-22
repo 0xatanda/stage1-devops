@@ -1,0 +1,81 @@
+[2025-10-22 19:39:56] INFO: Collecting inputs...
+[2025-10-22 19:41:25] INFO: Inputs: repo=https://github.com/0xatanda/stage1-devops.git branch=master remote=ubuntu@108.129.115.162 project_dir=/opt/app container_port=8080
+[2025-10-22 19:41:25] INFO: Cloning https://github.com/0xatanda/stage1-devops.git (branch master)
+Cloning into 'stage1-devops'...
+[2025-10-22 19:41:26] INFO: Dockerfile found
+[2025-10-22 19:41:26] INFO: Testing SSH connectivity...
+[2025-10-22 19:41:28] INFO: SSH OK
+[2025-10-22 19:41:28] INFO: Preparing remote environment (install Docker, compose, nginx)...
+Hit:1 http://eu-west-1.ec2.archive.ubuntu.com/ubuntu jammy InRelease
+Hit:2 http://eu-west-1.ec2.archive.ubuntu.com/ubuntu jammy-updates InRelease
+Hit:3 http://eu-west-1.ec2.archive.ubuntu.com/ubuntu jammy-backports InRelease
+Hit:4 https://download.docker.com/linux/ubuntu jammy InRelease
+Hit:5 http://security.ubuntu.com/ubuntu jammy-security InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+lsb-release is already the newest version (11.1.0ubuntu4).
+ca-certificates is already the newest version (20240203~22.04.1).
+curl is already the newest version (7.81.0-1ubuntu1.21).
+gnupg is already the newest version (2.2.27-3ubuntu2.4).
+0 upgraded, 0 newly installed, 0 to remove and 17 not upgraded.
+Synchronizing state of docker.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install enable docker
+Synchronizing state of nginx.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install enable nginx
+Docker version 28.5.1, build e180ab8
+Docker Compose version v2.40.1
+nginx version: nginx/1.18.0 (Ubuntu)
+PREP_DONE
+[2025-10-22 19:41:39] INFO: Remote prepared
+[2025-10-22 19:41:39] INFO: Transferring project to 108.129.115.162:/opt/app
+[2025-10-22 19:41:43] INFO: Files transferred
+[2025-10-22 19:41:44] INFO: Building and starting container(s) on remote
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 258B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/nginx:alpine
+#2 DONE 0.3s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/2] FROM docker.io/library/nginx:alpine@sha256:61e01287e546aac28a3f56839c136b31f590273f3b41187a36f46f6a03bbfe22
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 12.16kB done
+#5 DONE 0.0s
+
+#6 [2/2] COPY . /usr/share/nginx/html
+#6 CACHED
+
+#7 exporting to image
+#7 exporting layers done
+#7 writing image sha256:10de50c3cfefa996acf430ceeb00dbf196a8e88aa3989787e14c8b542dc31984 done
+#7 naming to docker.io/library/deploy_app done
+#7 DONE 0.0s
+deploy_app
+cf70e95d8c5a892ce330a3369ceb92abd4f4436f52a2b87abae5acbc25e913d6
+NAMES        STATUS         PORTS
+deploy_app   Up 3 seconds   80/tcp, 0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp
+DEPLOY_OK
+[2025-10-22 19:41:51] INFO: Remote containers started
+[2025-10-22 19:41:51] INFO: Configuring Nginx reverse proxy (port 80 -> 8080)
+nginx: [warn] conflicting server name "_" on 0.0.0.0:80, ignored
+nginx: [warn] conflicting server name "_" on [::]:80, ignored
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+NGINX_OK
+[2025-10-22 19:41:56] INFO: Nginx configured
+[2025-10-22 19:41:56] INFO: Validating deployment...
+[2025-10-22 19:42:01] INFO: Remote localhost:8080 HTTP code: 000000
+[2025-10-22 19:42:02] INFO: Via Nginx (http://108.129.115.162/) HTTP code: 200
+[2025-10-22 19:42:02] INFO: Deployment validated. App reachable at: http://108.129.115.162/
+[2025-10-22 19:42:02] INFO: Logfile saved at: /Users/macintosh/projects/stage1-devops/deploy_repo_20251022_193956/deploy_20251022_193956.log
+[2025-10-22 19:42:02] INFO: Script finished successfully. Full log: deploy_20251022_193956.log
